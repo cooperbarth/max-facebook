@@ -1,4 +1,5 @@
 module.exports = {
-    "/posts": require("../controllers/PostController"),
+    "/conversation": require("../controllers/ConversationController"),
+    "/messages": require("../controllers/MessageController"),
     "/users": require("../controllers/UserController")
 };
