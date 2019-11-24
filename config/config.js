@@ -1,14 +1,6 @@
 "use strict";
 
+// I know this is unsecure but who cares
 module.exports = {
-    "development":{
-        "host":"http://localhost:8081",
-        "clientHost":"http://localhost:3000",
-        "database":``
-    },
-    "production":{
-        "host":"",
-        "clientHost":"",
-        "database":``
-    }
+    "database":"mongodb+srv://everyone:4eyCfkOpjdrCBwCC@cluster0-ardqs.mongodb.net/test?retryWrites=true&w=majority"
 };
