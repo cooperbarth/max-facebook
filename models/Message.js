@@ -15,7 +15,7 @@ MessageSchema.statics.create = function(obj) {
     let message = new mongoose.model("Message", MessageSchema)();
     message.date = new Date();
     message.receiver = obj.receiver;
-    message.seen = False;
+    message.seen = false;
     message.sender = obj.sender;
     message.song = obj.song;
     return message;
