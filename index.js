@@ -10,7 +10,6 @@ mongoose.connect(config.database, {
 }, err => {
     if (err) {
         console.log("Could not connect to database.");
-        console.log(err);
         console.log(`${err.name}: ${err.errorLabels}`);
         process.exit(1);
     } else {
@@ -144,4 +143,4 @@ maxAPI.addHandlers({
             }
         });
     }
-})
+});
