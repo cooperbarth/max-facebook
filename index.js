@@ -75,11 +75,12 @@ maxAPI.addHandlers({
             }, (err, users) => {
                 if (err) {
                     maxAPI.post("Error retrieving users");
+                } else {
+                    for (let user of users) {
+                        maxAPI.outlet(user.name);
+                    }
                 }
-                for (let user of users) {
-                    maxAPI.outlet(user.name);
-                }
-            })
+            });
         }
     },
     receiveMessage: () => {
@@ -93,14 +94,15 @@ maxAPI.addHandlers({
                     maxAPI.post("Error retrieving message");
                 } else if (!res) {
                     maxAPI.post("No messages for this user");
+                } else {
+                    const song = res.song;
+                    maxAPI.outlet(song.times.concat(notes));
+                    Message.findOneAndUpdate({
+                        _id: res._id
+                    }, {
+                        seen: true
+                    });
                 }
-                const song = res.song;
-                maxAPI.outlet(song.times.concat(notes));
-                Message.findOneAndUpdate({
-                    _id: res._id
-                }, {
-                    seen: true
-                });
             });
     },
     sendMessage: receiverName => {
@@ -113,31 +115,33 @@ maxAPI.addHandlers({
                 timings = [];
             } else if (!me) {
                 maxAPI.post(`No user with name ${name}`);
+            } else {
+                User.findOne({
+                    name: receiverName
+                }, (err, receiver) => {
+                    if (err) {
+                        maxAPI.post("Error retrieving users");
+                        notes = [];
+                        timings = [];
+                    } else if (!receiver) {
+                        maxAPI.post(`No receiver with name ${receiverName}`);
+                    } else {
+                        const song = Song.create({
+                            notes: notes,
+                            times: timings
+                        });
+                        song.save();
+                        const message = Message.create({
+                            receiver: receiver._id,
+                            sender: me._id,
+                            song: song
+                        });
+                        message.save();
+                        notes = [];
+                        timings = [];
+                    }
+                });
             }
-            User.findOne({
-                name: receiverName
-            }, (err, receiver) => {
-                if (err) {
-                    maxAPI.post("Error retrieving users");
-                    notes = [];
-                    timings = [];
-                } else if (!receiver) {
-                    maxAPI.post(`No receiver with name ${receiverName}`);
-                }
-                const song = Song.create({
-                    notes: notes,
-                    times: timings
-                });
-                song.save();
-                const message = Message.create({
-                    receiver: receiver._id,
-                    sender: me._id,
-                    song: song
-                });
-                message.save();
-                notes = [];
-                timings = [];
-            });
         });
     }
 })
