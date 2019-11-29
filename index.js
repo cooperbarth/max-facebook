@@ -33,7 +33,8 @@ maxAPI.addHandlers({
         notes.push(note);
     },
     addTiming: timing => {
-        timing = parseInt(timing, 10);
+        timing = parseFloat(timing);
+        console.log(timing);
         if (isNaN(timing)) {
             return;
         } else if (timing < 0.125) {
