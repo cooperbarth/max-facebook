@@ -36,36 +36,25 @@ maxAPI.addHandlers({
         timing = parseInt(timing, 10);
         if (isNaN(timing)) {
             return;
-        }
-        if (timing > 3) {
-            timing = 4;
-        } else if (timing > 2) {
-            timing = 3;
-        } else if (timing > 1.5) {
-            timing = 2;
-        } else if (timing > 1) {
-            timing = 1.5;
-        } else if (timing > 0.5) {
-            timing = 1;
-        } else {
-            timing = 0.5;
+        } else if (timing < 0.125) {
+            timing = 0.125;
         }
         timings.push(timing);
     },
     addUser: newName => {
         if (newName !== name) {
             name = newName;
-            User.findOne({
-                name: name
-            }, (err, user) => {
-                if (!err && !user) {
-                    const user = User.create({
-                        name: name
-                    });
-                    user.save();
-                }
-            })
         }
+        User.findOne({
+            name: name
+        }, (err, user) => {
+            if (!err && !user) {
+                const user = User.create({
+                    name: name
+                });
+                user.save();
+            }
+        });
     },
     loadUsers: () => {
         if (name !== "") {
@@ -83,64 +72,83 @@ maxAPI.addHandlers({
         }
     },
     receiveMessage: () => {
-        Message.findOne({
-            "receiver.name": name,
+        Message.find({
             seen: false
         })
+            .populate("receiver")
             .populate("song")
-            .exec((err, res) => {
+            .exec((err, messages) => {
                 if (err) {
                     maxAPI.post("Error retrieving message");
-                } else if (!res) {
-                    maxAPI.post("No messages for this user");
                 } else {
-                    const song = res.song;
-                    maxAPI.outlet(song.times.concat(notes));
-                    Message.findOneAndUpdate({
-                        _id: res._id
-                    }, {
-                        seen: true
-                    });
+                    for (let message of messages) {
+                        if (message.receiver.name === name) {
+                            const song = message.song;
+                            maxAPI.outlet(song.times.concat(song.notes));
+                            Message.findOneAndUpdate({
+                                _id: message._id
+                            }, { 
+                                $set: {
+                                    seen: true
+                                }
+                            }, {upsert: true}, err => {
+                                if (err) {
+                                    maxAPI.post("Error updating message status");
+                                }
+                            });
+                            return;
+                        }
+                    }
                 }
             });
     },
     sendMessage: receiverName => {
-        User.findOne({
-            name: name
-        }, (err, me) => {
-            if (err) {
-                maxAPI.post("Error retrieving users");
-                notes = [];
-                timings = [];
-            } else if (!me) {
-                maxAPI.post(`No user with name ${name}`);
-            } else {
-                User.findOne({
-                    name: receiverName
-                }, (err, receiver) => {
-                    if (err) {
-                        maxAPI.post("Error retrieving users");
-                        notes = [];
-                        timings = [];
-                    } else if (!receiver) {
-                        maxAPI.post(`No receiver with name ${receiverName}`);
-                    } else {
-                        const song = Song.create({
-                            notes: notes,
-                            times: timings
-                        });
-                        song.save();
-                        const message = Message.create({
-                            receiver: receiver._id,
-                            sender: me._id,
-                            song: song
-                        });
-                        message.save();
-                        notes = [];
-                        timings = [];
-                    }
-                });
-            }
-        });
+        if (!receiverName || receiverName === "") {
+            maxAPI.post("No receiver name given");
+            return;
+        } else if (name === "") {
+            maxAPI.post("Must log in before sending messages");
+            return;
+        } else if (notes.length === 0 || timings.length === 0) {
+            maxAPI.post("No notes played");
+        } else {
+            User.findOne({
+                name: name
+            }, (err, me) => {
+                if (err) {
+                    maxAPI.post("Error retrieving users");
+                    notes = [];
+                    timings = [];
+                } else if (!me) {
+                    maxAPI.post(`No user with name ${name} - please log in again`);
+                } else {
+                    User.findOne({
+                        name: receiverName
+                    }, (err, receiver) => {
+                        if (err) {
+                            maxAPI.post("Error retrieving users");
+                            notes = [];
+                            timings = [];
+                        } else if (!receiver) {
+                            maxAPI.post(`No receiver with name ${receiverName}`);
+                        } else {
+                            const song = Song.create({
+                                notes: notes,
+                                times: timings
+                            });
+                            song.save();
+                            const message = Message.create({
+                                receiver: receiver._id,
+                                sender: me._id,
+                                song: song
+                            });
+                            message.save();
+                            notes = [];
+                            timings = [];
+                        }
+                    });
+                }
+            });
+        }
     }
 });
