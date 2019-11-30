@@ -39,12 +39,27 @@
 		"subpatcher_template" : "",
 		"boxes" : [ 			{
 				"box" : 				{
+					"id" : "obj-59",
+					"linecount" : 3,
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 529.0, 116.5, 150.0, 47.0 ],
+					"presentation" : 1,
+					"presentation_linecount" : 3,
+					"presentation_rect" : [ 58.0, 20.944444444444343, 150.0, 47.0 ],
+					"text" : "0) If Node.js isn't working, hit \"npm install\" then \"npm start\" manually"
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"id" : "obj-12",
 					"maxclass" : "message",
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 613.25, 47.5, 29.5, 22.0 ],
+					"patching_rect" : [ 656.25, 46.0, 29.5, 22.0 ],
 					"text" : "set"
 				}
 
@@ -56,7 +71,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "bang" ],
-					"patching_rect" : [ 613.25, 15.5, 58.0, 22.0 ],
+					"patching_rect" : [ 656.25, 14.0, 58.0, 22.0 ],
 					"text" : "loadbang"
 				}
 
@@ -116,6 +131,8 @@
 					"saved_object_attributes" : 					{
 						"autostart" : 1,
 						"defer" : 0,
+						"node_bin_path" : "",
+						"npm_bin_path" : "",
 						"watch" : 0
 					}
 ,
@@ -157,7 +174,7 @@
 					"patching_rect" : [ 96.0, 47.5, 153.0, 33.0 ],
 					"presentation" : 1,
 					"presentation_linecount" : 2,
-					"presentation_rect" : [ 375.0, 182.5, 153.0, 33.0 ],
+					"presentation_rect" : [ 362.0, 219.5, 153.0, 33.0 ],
 					"text" : "3) Use the number keys to play a sequence of notes"
 				}
 
@@ -203,7 +220,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 789.25, 174.555555555555657, 97.0, 22.0 ],
+					"patching_rect" : [ 832.25, 173.055555555555657, 97.0, 22.0 ],
 					"text" : "s reload_receive"
 				}
 
@@ -665,7 +682,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 846.75, 135.5, 75.0, 22.0 ],
+					"patching_rect" : [ 889.75, 134.0, 75.0, 22.0 ],
 					"text" : "s clearUsers"
 				}
 
@@ -843,7 +860,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 685.25, 174.5, 93.0, 22.0 ],
+					"patching_rect" : [ 728.25, 173.0, 93.0, 22.0 ],
 					"text" : "s node_process"
 				}
 
@@ -855,7 +872,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 758.75, 135.5, 71.0, 22.0 ],
+					"patching_rect" : [ 801.75, 134.0, 71.0, 22.0 ],
 					"text" : "addUser $2"
 				}
 
@@ -882,7 +899,7 @@
 					"patching_rect" : [ 533.5, 366.0, 95.0, 33.0 ],
 					"presentation" : 1,
 					"presentation_linecount" : 2,
-					"presentation_rect" : [ 375.0, 314.5, 95.0, 33.0 ],
+					"presentation_rect" : [ 362.0, 351.5, 95.0, 33.0 ],
 					"text" : "4) Click to send message"
 				}
 
@@ -894,7 +911,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "bang", "" ],
-					"patching_rect" : [ 685.25, 47.5, 41.0, 22.0 ],
+					"patching_rect" : [ 728.25, 46.0, 41.0, 22.0 ],
 					"text" : "sel 13"
 				}
 
@@ -906,7 +923,7 @@
 					"numinlets" : 0,
 					"numoutlets" : 4,
 					"outlettype" : [ "int", "int", "int", "int" ],
-					"patching_rect" : [ 685.25, 15.5, 40.5, 22.0 ],
+					"patching_rect" : [ 728.25, 14.0, 40.5, 22.0 ],
 					"text" : "key"
 				}
 
@@ -932,7 +949,7 @@
 					"parameter_enable" : 0,
 					"patching_rect" : [ 634.0, 370.5, 24.0, 24.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 375.0, 349.5, 150.0, 150.0 ]
+					"presentation_rect" : [ 362.0, 386.5, 150.0, 150.0 ]
 				}
 
 			}
@@ -943,7 +960,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 685.25, 135.5, 63.0, 22.0 ],
+					"patching_rect" : [ 728.25, 134.0, 63.0, 22.0 ],
 					"text" : "loadUsers"
 				}
 
@@ -958,7 +975,7 @@
 					"patching_rect" : [ 749.5, 244.0, 116.0, 33.0 ],
 					"presentation" : 1,
 					"presentation_linecount" : 2,
-					"presentation_rect" : [ 360.0, 98.5, 116.0, 33.0 ],
+					"presentation_rect" : [ 347.0, 135.5, 116.0, 33.0 ],
 					"text" : "2) Select Message Recipient"
 				}
 
@@ -970,10 +987,10 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 736.25, 42.0, 148.0, 33.0 ],
+					"patching_rect" : [ 779.25, 40.5, 148.0, 33.0 ],
 					"presentation" : 1,
 					"presentation_linecount" : 3,
-					"presentation_rect" : [ 444.0, 40.444444444444343, 116.0, 47.0 ],
+					"presentation_rect" : [ 431.0, 77.444444444444343, 116.0, 47.0 ],
 					"text" : "1) Enter Name, click outside, and Press Enter"
 				}
 
@@ -987,10 +1004,9 @@
 					"numoutlets" : 4,
 					"outlettype" : [ "", "int", "", "" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 685.25, 80.5, 267.0, 40.0 ],
+					"patching_rect" : [ 728.25, 79.0, 267.0, 40.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 71.0, 41.944444444444343, 364.0, 44.0 ],
-					"text" : "P2"
+					"presentation_rect" : [ 58.0, 78.944444444444343, 364.0, 44.0 ]
 				}
 
 			}
@@ -1009,7 +1025,7 @@
 					"parameter_enable" : 0,
 					"patching_rect" : [ 677.0, 283.5, 279.0, 111.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 71.0, 98.5, 279.0, 401.0 ],
+					"presentation_rect" : [ 58.0, 135.5, 279.0, 401.0 ],
 					"textjustification" : 0
 				}
 
@@ -1454,7 +1470,7 @@
 					"parameter_enable" : 0,
 					"patching_rect" : [ 19.0, 93.0, 336.0, 53.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 71.0, 523.5, 560.0, 83.0 ],
+					"presentation_rect" : [ 58.0, 560.5, 560.0, 83.0 ],
 					"selectioncolor" : [ 0.913725490196078, 0.349019607843137, 0.925490196078431, 1.0 ],
 					"style" : "chiba",
 					"whitekeycolor" : [ 0.0, 0.0, 0.0, 1.0 ]
@@ -1507,7 +1523,7 @@
 					"parameter_enable" : 0,
 					"patching_rect" : [ 399.25, 246.944444444444343, 22.0, 140.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 643.0, 495.0, 22.0, 140.0 ]
+					"presentation_rect" : [ 630.0, 532.0, 22.0, 140.0 ]
 				}
 
 			}
@@ -3060,8 +3076,8 @@
 						"proportion" : 0.39
 					}
 ,
-					"textcolor" : [ 0.862745, 0.870588, 0.878431, 1.0 ],
-					"accentcolor" : [ 0.952941, 0.564706, 0.098039, 1.0 ]
+					"accentcolor" : [ 0.952941, 0.564706, 0.098039, 1.0 ],
+					"textcolor" : [ 0.862745, 0.870588, 0.878431, 1.0 ]
 				}
 ,
 				"parentstyle" : "",
