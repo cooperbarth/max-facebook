@@ -24,6 +24,8 @@ const Message = require("./models/Message");
 const Song = require("./models/Song");
 const User = require("./models/User");
 
+const MIN_TIMING = 0.1;
+
 let name = "";
 let notes = [];
 let timings = [];
@@ -34,13 +36,10 @@ maxAPI.addHandlers({
     },
     addTiming: timing => {
         timing = parseFloat(timing);
-        console.log(timing);
         if (isNaN(timing)) {
             return;
-        } else if (timing < 0.125) {
-            timing = 0.125;
         }
-        timings.push(timing);
+        timings.push(Math.max(timing, MIN_TIMING));
     },
     addUser: newName => {
         if (newName !== name) {
